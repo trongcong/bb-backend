@@ -4,7 +4,7 @@ import { BASE_URL, SENDGRID } from '@config';
 
 interface SendMailProps {
   email: string;
-  type?: 'confirm' | 'reset-pass';
+  type: 'confirm' | 'reset-pass';
   confirm?: {
     token: string;
   };

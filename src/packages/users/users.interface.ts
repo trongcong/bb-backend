@@ -17,8 +17,10 @@ export interface User {
   last_pass_change_at: number;
 }
 
-export interface UserReturn {
+export type UserReturn = Omit<User, 'password'>;
+
+export interface LoginReturn {
   cookie: string;
-  findUser: Omit<User, 'password'>;
+  findUser: UserReturn;
   tokenData: TokenData;
 }

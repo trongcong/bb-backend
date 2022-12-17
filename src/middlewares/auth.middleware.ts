@@ -4,6 +4,7 @@ import { SECRET_KEY } from '@config';
 import { HttpException } from '@exceptions/HttpException';
 import { DataStoredInToken, RequestWithUser } from '@packages/auth/auth.interface';
 import userModel from '@packages/users/users.model';
+import { User } from '@packages/users/users.interface';
 
 const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
@@ -13,11 +14,15 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
       const secretKey: string = SECRET_KEY;
       const verificationResponse = (await verify(Authorization, secretKey)) as DataStoredInToken;
       const userId = verificationResponse._id;
-      const findUser = await userModel.findById(userId);
+      const findUser: User = await userModel.findById(userId);
 
       if (findUser) {
-        req.user = findUser;
-        next();
+        if (findUser.last_pass_change_at > verificationResponse.created_at) {
+          next(new HttpException(401, 'Authentication failed. Password has been changed.'));
+        } else {
+          req.user = findUser;
+          next();
+        }
       } else {
         next(new HttpException(401, 'Wrong authentication token'));
       }

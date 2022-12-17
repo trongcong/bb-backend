@@ -1,18 +1,28 @@
 import { NextFunction, Request, Response } from 'express';
-import { CreateUserDto, LoginUserDto } from '@packages/users/users.dto';
+import { CreateUserDto, LoginUserDto, UserEmailDto } from '@packages/users/users.dto';
 import { RequestWithUser } from '@packages/auth/auth.interface';
-import { User } from '@packages/users/users.interface';
+import { User, UserReturn } from '@packages/users/users.interface';
 import AuthService from '@packages/auth/auth.service';
 
 class AuthController {
   public authService = new AuthService();
 
-  public signUp = async (req: Request, res: Response, next: NextFunction) => {
+  public register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: CreateUserDto = req.body;
-      const signUpUserData: User = await this.authService.signup(userData);
+      const signUpUserData: UserReturn = await this.authService.register(userData);
 
       res.status(201).json({ data: signUpUserData, message: 'signup' });
+    } catch (error) {
+      next(error);
+    }
+  };
+  public resetUserPassword = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userData: UserEmailDto = req.body;
+      const user: UserReturn = await this.authService.resetPassword(userData);
+
+      res.status(201).json({ data: user, message: 'Reset password success. Please check your email!' });
     } catch (error) {
       next(error);
     }
@@ -33,7 +43,7 @@ class AuthController {
   public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
     try {
       const userData: User = req.user;
-      const logOutUserData: User = await this.authService.logout(userData);
+      const logOutUserData = await this.authService.logout(userData);
 
       res.setHeader('Set-Cookie', ['Authorization=; Max-age=0']);
       res.status(200).json({ data: logOutUserData, message: 'logout' });

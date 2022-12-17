@@ -1,22 +1,21 @@
 import { hash } from 'bcrypt';
 import { CreateUserDto } from '@packages/users/users.dto';
 import { HttpException } from '@exceptions/HttpException';
-import { User } from '@packages/users/users.interface';
+import { User, UserReturn } from '@packages/users/users.interface';
 import userModel from '@packages/users/users.model';
 import { isEmpty } from '@utils/util';
 
 class UserService {
   public users = userModel;
 
-  public async findAllUser(): Promise<User[]> {
-    const users: User[] = await this.users.find();
-    return users;
+  public async findAllUser(): Promise<UserReturn[]> {
+    return this.users.find({}, { __v: 0, password: 0 });
   }
 
   public async findUserById(userId: string): Promise<User> {
     if (isEmpty(userId)) throw new HttpException(400, 'UserId is empty');
 
-    const findUser: User = await this.users.findById(userId);
+    const findUser: User = await this.users.findById(userId, { __v: 0, password: 0 });
     if (!findUser) throw new HttpException(409, "User doesn't exist");
 
     return findUser;

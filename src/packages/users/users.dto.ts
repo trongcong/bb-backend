@@ -1,11 +1,13 @@
 import { IsBoolean, IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { isMatch } from '@utils/match.decorator';
 
-export class UserDto {
+export class UserEmailDto {
   @IsEmail()
   @IsNotEmpty()
   public email: string;
+}
 
+export class UserDto extends UserEmailDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(4)

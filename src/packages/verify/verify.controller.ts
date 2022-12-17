@@ -6,7 +6,7 @@ import { VerifyTokenReturn } from '@packages/verify/verify.interface';
 class VerifyController {
   public verifyService = new VerifyService();
 
-  public async confirmationVerify(req: Request, res: Response, next: NextFunction) {
+  public confirmationVerify = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const verifyData: ConfirmVerifyDto = req.body;
       const confirmationVerifyData: VerifyTokenReturn = await this.verifyService.confirmationVerify(verifyData);
@@ -15,9 +15,9 @@ class VerifyController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  public async sendTokenVerify(req: Request, res: Response, next: NextFunction) {
+  public sendTokenVerify = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const sendTokenData: SendTokenVerifyDto = req.body;
       const confirmationVerifyData = await this.verifyService.sendTokenVerify(sendTokenData);
@@ -29,7 +29,7 @@ class VerifyController {
     } catch (error) {
       next(error);
     }
-  }
+  };
 }
 
 export default VerifyController;

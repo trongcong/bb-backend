@@ -14,7 +14,7 @@ class VerifyService {
 
   public async actionSendMailToken(user: User, email: string): Promise<void> {
     const { token } = await this.verify.create({ user_id: user._id, token: crypto.randomBytes(16).toString('hex') });
-    return await sendMail({ email: email, confirm: { token: token } });
+    return await sendMail({ type: 'confirm', email: email, confirm: { token: token } });
   }
 
   public async confirmationVerify(verifyData: ConfirmVerifyDto): Promise<VerifyTokenReturn> {

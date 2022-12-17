@@ -8,7 +8,7 @@ const errorMiddleware = (error: HttpException, req: Request, res: Response, next
     const message: string = error.message || 'Something went wrong';
     const errors: any[] | {} = error.errors;
 
-    logger.error(`[${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message}, Errors:: ${errors}`);
+    logger.error(`[${req.method}] ${req.path} >> StatusCode:: ${status}, Message:: ${message}, Errors:: ${errors || null}`);
     res.status(status).json({ message, errors });
   } catch (error) {
     next(error);

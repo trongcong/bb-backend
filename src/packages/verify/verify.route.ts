@@ -3,6 +3,7 @@ import VerifyController from '@packages/verify/verify.controller';
 import { Routes } from '@interfaces/routes.interface';
 import validationMiddleware from '@middlewares/validation.middleware';
 import { ConfirmVerifyDto, SendTokenVerifyDto } from '@packages/verify/verify.dto';
+import authMiddleware from '@middlewares/auth.middleware';
 
 class VerifyRoute implements Routes {
   public path = '/verify';
@@ -14,16 +15,9 @@ class VerifyRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.post(
-      `${this.path}`,
-      validationMiddleware(ConfirmVerifyDto, 'body'),
-      this.verifyController.confirmationVerify.bind(this.verifyController).bind(this.verifyController),
-    );
-    this.router.post(
-      `${this.path}/resend-token`,
-      validationMiddleware(SendTokenVerifyDto, 'body'),
-      this.verifyController.sendTokenVerify.bind(this.verifyController),
-    );
+    this.router.use(`${this.path}`, [authMiddleware]);
+    this.router.post(`${this.path}`, [validationMiddleware(ConfirmVerifyDto, 'body'), this.verifyController.confirmationVerify]);
+    this.router.post(`${this.path}/resend-token`, [validationMiddleware(SendTokenVerifyDto, 'body'), this.verifyController.sendTokenVerify]);
   }
 }
 
