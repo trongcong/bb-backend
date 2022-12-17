@@ -7,7 +7,7 @@ import { DataStoredInToken, TokenData } from '@interfaces/auth.interface';
 import { User, UserReturn } from '@interfaces/users.interface';
 import userModel from '@models/users.model';
 import { isEmpty } from '@utils/util';
-import VerifyService from '@services/verify.service';
+import VerifyService from '@packages/verify/verify.service';
 
 class AuthService {
   public users = userModel;

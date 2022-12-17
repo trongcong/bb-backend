@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import VerifyController from '@controllers/verify.controller';
+import VerifyController from '@packages/verify/verify.controller';
 import { Routes } from '@interfaces/routes.interface';
 import validationMiddleware from '@middlewares/validation.middleware';
-import { ConfirmVerifyDto, SendTokenVerifyDto } from '@dtos/verify.dto';
+import { ConfirmVerifyDto, SendTokenVerifyDto } from '@packages/verify/verify.dto';
 
 class VerifyRoute implements Routes {
-  public path = '/verify/';
+  public path = '/verify';
   public router = Router();
   public verifyController = new VerifyController();
 
@@ -20,7 +20,7 @@ class VerifyRoute implements Routes {
       this.verifyController.confirmationVerify.bind(this.verifyController).bind(this.verifyController),
     );
     this.router.post(
-      `${this.path}resend-token`,
+      `${this.path}/resend-token`,
       validationMiddleware(SendTokenVerifyDto, 'body'),
       this.verifyController.sendTokenVerify.bind(this.verifyController),
     );

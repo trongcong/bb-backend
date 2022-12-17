@@ -1,5 +1,5 @@
 import { Document, model, Schema, Types } from 'mongoose';
-import { VerifyToken } from '@interfaces/verify.interface';
+import { VerifyToken } from '@packages/verify/verify.interface';
 
 const { ObjectId } = Types;
 const VerifyTokenSchema = new Schema({

@@ -1,12 +1,12 @@
-import { ConfirmVerifyDto, SendTokenVerifyDto } from '@dtos/verify.dto';
 import { HttpException } from '@exceptions/HttpException';
-import { VerifyToken, VerifyTokenReturn } from '@interfaces/verify.interface';
 import { isEmpty } from '@utils/util';
 import { sendMail } from '@utils/helpers/sendMail';
 import crypto from 'crypto';
 import userModel from '@models/users.model';
-import verifyModel from '@models/verify.model';
+import verifyModel from '@packages/verify/verify.model';
 import { User } from '@interfaces/users.interface';
+import { ConfirmVerifyDto, SendTokenVerifyDto } from '@packages/verify/verify.dto';
+import { VerifyToken, VerifyTokenReturn } from '@packages/verify/verify.interface';
 
 class VerifyService {
   public verify = verifyModel;

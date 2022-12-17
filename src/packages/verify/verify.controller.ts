@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import VerifyService from '@services/verify.service';
-import { ConfirmVerifyDto, SendTokenVerifyDto } from '@dtos/verify.dto';
-import { VerifyTokenReturn } from '@interfaces/verify.interface';
+import VerifyService from '@packages/verify/verify.service';
+import { ConfirmVerifyDto, SendTokenVerifyDto } from '@packages/verify/verify.dto';
+import { VerifyTokenReturn } from '@packages/verify/verify.interface';
 
 class VerifyController {
   public verifyService = new VerifyService();
