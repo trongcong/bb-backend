@@ -1,5 +1,5 @@
 import { model, Schema, Document } from 'mongoose';
-import { User } from '@interfaces/users.interface';
+import { User } from '@packages/users/users.interface';
 import { isEmail } from 'class-validator';
 
 // const validateEmail = function (email) {

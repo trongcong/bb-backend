@@ -2,9 +2,9 @@ import { HttpException } from '@exceptions/HttpException';
 import { isEmpty } from '@utils/util';
 import { sendMail } from '@utils/helpers/sendMail';
 import crypto from 'crypto';
-import userModel from '@models/users.model';
+import userModel from '@packages/users/users.model';
 import verifyModel from '@packages/verify/verify.model';
-import { User } from '@interfaces/users.interface';
+import { User } from '@packages/users/users.interface';
 import { ConfirmVerifyDto, SendTokenVerifyDto } from '@packages/verify/verify.dto';
 import { VerifyToken, VerifyTokenReturn } from '@packages/verify/verify.interface';
 

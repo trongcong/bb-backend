@@ -1,4 +1,4 @@
-import { TokenData } from '@interfaces/auth.interface';
+import { TokenData } from '@packages/auth/auth.interface';
 
 export interface User {
   _id: string;
