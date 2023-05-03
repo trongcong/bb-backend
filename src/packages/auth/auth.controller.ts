@@ -34,7 +34,7 @@ class AuthController {
       const { cookie, findUser, tokenData } = await this.authService.login(userData);
 
       res.setHeader('Set-Cookie', [cookie]);
-      res.status(200).json({ data: { tokenData, userData: findUser }, message: 'Login success' });
+      res.status(200).json({ data: { token:tokenData.token, userData: findUser }, message: 'Login success' });
     } catch (error) {
       next(error);
     }

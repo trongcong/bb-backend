@@ -1,4 +1,4 @@
-import { User } from '@packages/users/users.interface';
+import { User, UserReturn } from '@packages/users/users.interface';
 
 /**
  * @method isEmpty
@@ -20,7 +20,7 @@ export const isEmpty = (value: string | number | object): boolean => {
   }
 };
 
-export const getUserReturn = (user: User) => ({
+export const getUserReturn = (user: User): UserReturn => ({
   _id: user._id,
   address: user.address,
   avatar: user.avatar,

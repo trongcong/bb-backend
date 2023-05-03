@@ -64,8 +64,11 @@ class App {
   }
 
   private initializeRoutes(routes: Routes[]) {
+    const { router: indexRouter } =routes.find(e=> e.hasOwnProperty('indexController'))
+
+    this.app.use('/', indexRouter);
     routes.forEach(route => {
-      this.app.use('/', route.router);
+      this.app.use('/v1/', route.router);
     });
   }
 

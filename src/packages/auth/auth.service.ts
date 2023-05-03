@@ -57,7 +57,7 @@ class AuthService {
     if (!findUser) throw new HttpException(409, `This email "${email}" was not found`);
 
     const isPasswordMatching: boolean = await compare(password, findUser.password);
-    if (!isPasswordMatching) throw new HttpException(409, 'Password is not matching');
+    if (!isPasswordMatching) throw new HttpException(409, 'Email or password is not matching');
 
     const tokenData = this.createToken(findUser, remember);
     const cookie = this.createCookie(tokenData);
